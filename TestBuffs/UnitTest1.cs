@@ -11,20 +11,20 @@ namespace TestBuffs
         public void TestStackability()
         {
             var unit = new TestCardClasses.Units.CustomUnit1();
-            var buff1 = new TestBuff1();
-            var buff2 = new TestBuff2();
+            var buff1 = new MegamorphDoubleBuff();
+            var buff2 = new AttackBuff500();
 
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff1, unit);
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff2, unit);
 
             Assert.AreEqual(2, unit.ApiAppliedBuffsExternalCall.Length);
 
-            var buff12 = new TestBuff1();
+            var buff12 = new MegamorphDoubleBuff();
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff12, unit);
 
             Assert.AreEqual(2, unit.ApiAppliedBuffsExternalCall.Length);
 
-            var buff22 = new TestBuff2();
+            var buff22 = new AttackBuff500();
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff22, unit);
             Assert.AreEqual(3, unit.ApiAppliedBuffsExternalCall.Length);
         }
@@ -33,15 +33,15 @@ namespace TestBuffs
         public void TestBuffRemoval()
         {
             var unit = new TestCardClasses.Units.CustomUnit1();
-            var buff1 = new TestBuff1();
-            var buff2 = new TestBuff2();
+            var buff1 = new MegamorphDoubleBuff();
+            var buff2 = new AttackBuff500();
 
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff1, unit);
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff2, unit);
 
             Assert.AreEqual(2, unit.ApiAppliedBuffsExternalCall.Length);
 
-            var buff22 = new TestBuff2();
+            var buff22 = new AttackBuff500();
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff22, unit);
             Assert.AreEqual(3, unit.ApiAppliedBuffsExternalCall.Length);
 
@@ -74,12 +74,31 @@ namespace TestBuffs
         public void TestConditionalBuff()
         {
             var unit = new TestCardClasses.Units.CustomUnit1();
+            var unit2 = new TestCardClasses.Units.CustomUnit1();
             var berserkerBuff = new BerserkerBuff();
             TestCardClasses.Buffs.BuffProcessor.AddBuff(berserkerBuff, unit);
             Assert.IsFalse(berserkerBuff.IsActive());
-            unit.Health = 2;
-            Assert.IsTrue(berserkerBuff.IsActive());            
+
+
+            var dp = new TestCardClasses.Processors.DamageProcessor();
+            dp.CalculateDamage(unit, unit2);
+            Assert.IsFalse(berserkerBuff.IsActive());
+            dp.CalculateDamage(unit, unit2);
+            Assert.IsTrue(berserkerBuff.IsActive());
+            Assert.AreEqual(1, unit.Health);
         }
 
+        [TestMethod]
+        public void TestPriority()
+        {
+            var unit = new TestCardClasses.Units.CustomUnit1();
+            var buff1 = new MegamorphDoubleBuff();
+            var buff2 = new AttackBuff500();
+
+            TestCardClasses.Buffs.BuffProcessor.AddBuff(buff2, unit);
+            TestCardClasses.Buffs.BuffProcessor.AddBuff(buff1, unit);
+
+            Assert.AreEqual(500, unit.Attack);
+        }
     }
 }

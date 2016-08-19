@@ -17,6 +17,7 @@ namespace TestCardClasses
         private readonly int _level;
 
         private int _currentHealth;
+        private int _currentAttack;
 
         public int BaseHealth
         {
@@ -49,13 +50,11 @@ namespace TestCardClasses
         public int Health
         {
             get { return _currentHealth; }
-            //TODO: Need to encapsulate this somehow!
             protected set
             {
                 _currentHealth = value;
             }
         }
-
         private List<Buffs.Applied_Buffs.BuffBase> _appliedBuffs =
             new List<Buffs.Applied_Buffs.BuffBase>();
 
@@ -84,12 +83,40 @@ namespace TestCardClasses
             _baseRange = stats.Range;
             _level = stats.Level;
             _currentHealth = _baseHealth;
+            _currentAttack = stats.Attack;
         }
 
-        public void ApplyDamage(BaseUnit otherUnit, int damage)
+        private void ApplyDamage(int damage)
         {
-            if (Buffs.BuffProcessor.DamageValid(otherUnit, this))
-                otherUnit.Health -= damage;
+            Health -= damage;
+        }
+
+        public void ApplyDamage(BaseUnit attackingUnit)
+        {
+            var remainingHealth = Health - attackingUnit.Attack;
+            Health = (remainingHealth >= 0) ? remainingHealth : 0;
+        }
+
+        public void RecalculateStats()
+        {
+            RecalculateAttack();
+        }
+
+        private void RecalculateAttack()
+        {
+            Attack = _baseAttack;
+            //Need to decide if this is better, or just having a sorted list.
+            _appliedBuffs = _appliedBuffs.OrderBy(b => b.Priority).ToList();
+            foreach(var buff in _appliedBuffs)
+            {
+                Attack = buff.CalculateAttack();
+            }
+        }
+
+        public int Attack
+        {
+            get { return _currentAttack; }
+            private set { _currentAttack = value; }
         }
     }
 

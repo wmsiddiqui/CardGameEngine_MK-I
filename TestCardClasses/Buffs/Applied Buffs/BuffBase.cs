@@ -10,10 +10,10 @@ namespace TestCardClasses.Buffs.Applied_Buffs
     {
         private readonly bool _stackable;
         private int _turnsRemaining;
-        protected int _priority;
+        protected int _priority = 10;
         private BuffBase _parentBuff = null;
         private BaseUnit _parentUnit = null;
-        protected List<BaseUnit> _unitsApplied = null;
+        protected List<BuffBase> _childBuffs = null;
 
         public bool Stackable
         {
@@ -24,6 +24,8 @@ namespace TestCardClasses.Buffs.Applied_Buffs
         {
             _stackable = stackable;
         }
+        public int Priority
+        { get { return _priority; } }
 
         public BaseUnit ParentUnit
         {
@@ -36,16 +38,9 @@ namespace TestCardClasses.Buffs.Applied_Buffs
                 }
             }
         }
-
-        public virtual int AttackProcessor(BaseUnit attacker)
+        public virtual int CalculateAttack()
         {
-            return attacker.BaseAttack;
-        }
-
-        public virtual int DamageProcessor(BaseUnit defender, BaseUnit attacker)
-        {
-            return attacker.BaseAttack;
-        }
-
+            return _parentUnit.BaseAttack;
+        }        
     }
 }

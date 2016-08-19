@@ -13,7 +13,7 @@ namespace TestCardClasses.Buffs.Applied_Buffs
         public BerserkerBuff() 
             : base(stackable)
         {
-            
+            _priority = 2;
         }
 
         

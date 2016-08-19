@@ -25,6 +25,7 @@ namespace TestCardClasses.Buffs
             }            
             unit.AppliedBuffs.Add(buff);
             buff.ParentUnit = unit;
+            unit.RecalculateStats();
         }
         /// <summary>
         /// Removes first occurance of specified buff from unit.
@@ -44,11 +45,13 @@ namespace TestCardClasses.Buffs
             if (removeAll)
             {
                 unit.AppliedBuffs.RemoveAll(b => b.GetType() == buff.GetType());
+                unit.RecalculateStats();
             }
             else
             {
                 var first = unit.AppliedBuffs.First(b => b.GetType() == buff.GetType());
                 unit.AppliedBuffs.Remove(first);
+                unit.RecalculateStats();
             }
         }
         private static IEnumerable<BuffBase> FindMatchingAppliedBuffs(BuffBase buff, BaseUnit unit)
@@ -60,16 +63,6 @@ namespace TestCardClasses.Buffs
                 return matchingBuffs;
             }
             return null;
-        }        
-
-        public static void SetUnitHealth(BaseUnit unit, int health)
-        {
-            unit.Health = health;
-        }
-
-        public static bool DamageValid(BaseUnit defendingUnit, BaseUnit attackingUnit)
-        {
-            return true;
         }
     }
 }

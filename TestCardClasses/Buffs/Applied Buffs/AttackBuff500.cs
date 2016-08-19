@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses.Buffs.Applied_Buffs
 {
-    public sealed class TestBuff1 : TimedBuff
+    public sealed class AttackBuff500 : TimedBuff
     {
         private const int _duration = 10;
-        private const bool _stackable = false;
+        private const bool _stackable = true;
 
-        public TestBuff1() :
+        public AttackBuff500() :
            base(_stackable, _duration)
-        { }
+        {
+            _priority = 3;
+        }
 
-        public override int AttackProcessor(BaseUnit attacker)
+        public override int CalculateAttack()
         {
             return 500;
         }
