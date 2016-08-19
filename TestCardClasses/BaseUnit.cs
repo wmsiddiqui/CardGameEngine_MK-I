@@ -15,7 +15,7 @@ namespace TestCardClasses
         private readonly int _startingEnergy;
         private readonly int _baseRange;
         private readonly int _level;
-
+        //test
         private int _currentHealth;
         private int _currentAttack;
 
