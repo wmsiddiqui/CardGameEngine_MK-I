@@ -13,6 +13,10 @@ namespace TestCardClasses.Buffs
         {
             if(!buff.Stackable)
             {
+                if(buff is LingeringBuffs)
+                {
+                    return;
+                }
                 var matchingBuffs = FindMatchingAppliedBuffs(buff, unit);
                 if (matchingBuffs != null)
                 {
@@ -22,10 +26,22 @@ namespace TestCardClasses.Buffs
                     var matchedBuff = matchingBuffs.First();
                     unit.AppliedBuffs.Remove(matchedBuff);
                 }               
-            }            
-            unit.AppliedBuffs.Add(buff);
-            buff.ParentUnit = unit;
-            unit.RecalculateStats();
+            }
+            if (!(buff is SingleUseBuff))
+            {
+                unit.AppliedBuffs.Add(buff);
+                buff.ParentUnit = unit;
+                unit.RecalculateStats();
+            }
+            else
+            {
+                ProcessSingleUseBuff(buff as SingleUseBuff);
+            }
+        }
+
+        public static void ProcessSingleUseBuff(SingleUseBuff buff)
+        {
+            
         }
         /// <summary>
         /// Removes first occurance of specified buff from unit.

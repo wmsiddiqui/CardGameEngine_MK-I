@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses.Buffs.Applied_Buffs
 {
-    public class TimedBuff : BuffBase
+    public abstract class TimedBuff : BuffBase
     {
         private readonly int _duration;
-        
+        private int _turnsRemaining;
+
+
+
         public TimedBuff(bool stackable, int duration)
             :base(stackable)
         {

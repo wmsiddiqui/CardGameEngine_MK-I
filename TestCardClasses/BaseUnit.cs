@@ -93,8 +93,18 @@ namespace TestCardClasses
 
         public void ApplyDamage(BaseUnit attackingUnit)
         {
-            var remainingHealth = Health - attackingUnit.Attack;
+            int damage = attackingUnit.Attack;
+            foreach (var buff in _appliedBuffs)
+            {
+                damage = buff.CalculateDamage(damage);
+            }
+            int remainingHealth = Health - damage;
             Health = (remainingHealth >= 0) ? remainingHealth : 0;
+        }
+        
+        internal void ApplyHealthBuff()
+        {
+
         }
 
         public void RecalculateStats()

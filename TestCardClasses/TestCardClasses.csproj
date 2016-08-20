@@ -45,8 +45,10 @@
     <Compile Include="Buffs\Applied Buffs\ConditionalBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\MegamorphDoubleBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\AttackBuff500.cs" />
+    <Compile Include="Buffs\Applied Buffs\LingeringBuffs.cs" />
+    <Compile Include="Buffs\Applied Buffs\SingleUseBuff.cs" />
+    <Compile Include="Buffs\Applied Buffs\SingleUseHealthBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\TimedBuff.cs" />
-    <Compile Include="Buffs\AppliedBuffs.cs" />
     <Compile Include="BaseCard.cs" />
     <Compile Include="BaseUnit.cs" />
     <Compile Include="Buffs\BuffProcessor.cs" />

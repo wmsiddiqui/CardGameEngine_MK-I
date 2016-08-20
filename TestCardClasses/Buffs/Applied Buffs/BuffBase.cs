@@ -9,7 +9,6 @@ namespace TestCardClasses.Buffs.Applied_Buffs
     public abstract class BuffBase
     {
         private readonly bool _stackable;
-        private int _turnsRemaining;
         protected int _priority = 10;
         private BuffBase _parentBuff = null;
         private BaseUnit _parentUnit = null;
@@ -41,6 +40,10 @@ namespace TestCardClasses.Buffs.Applied_Buffs
         public virtual int CalculateAttack()
         {
             return _parentUnit.BaseAttack;
-        }        
+        }
+        public virtual int CalculateDamage(int attackerAttack)
+        {
+            return attackerAttack;
+        }
     }
 }
