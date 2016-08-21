@@ -41,6 +41,10 @@ namespace TestCardClasses.Buffs.Applied_Buffs
         {
             return _parentUnit.BaseAttack;
         }
+        public virtual int CalculateSpeed()
+        {
+            return _parentUnit.BaseSpeed;
+        }
         public virtual int CalculateDamage(int attackerAttack)
         {
             return attackerAttack;

@@ -18,6 +18,8 @@ namespace TestCardClasses
         //test
         private int _currentHealth;
         private int _currentAttack;
+        private int _currentSpeed;
+
 
         public int BaseHealth
         {
@@ -84,6 +86,7 @@ namespace TestCardClasses
             _level = stats.Level;
             _currentHealth = _baseHealth;
             _currentAttack = stats.Attack;
+            _currentSpeed = stats.Speed;
         }
 
         private void ApplyDamage(int damage)
@@ -110,6 +113,7 @@ namespace TestCardClasses
         public void RecalculateStats()
         {
             RecalculateAttack();
+            //Might add Recalculation of speed here as well?
         }
 
         private void RecalculateAttack()
@@ -127,6 +131,12 @@ namespace TestCardClasses
         {
             get { return _currentAttack; }
             private set { _currentAttack = value; }
+        }
+
+        public int Speed
+        {
+            get { return _currentSpeed; }
+            private set { _currentSpeed = value; }
         }
     }
 
