@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses.Buffs.Applied_Buffs
 {
-    public abstract class TimedBuff : BuffBase
+    public abstract class TimedBuff : PersistingBuff
     {
         private readonly int _duration;
         private int _turnsRemaining;

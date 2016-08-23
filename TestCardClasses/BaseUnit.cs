@@ -13,12 +13,14 @@ namespace TestCardClasses
         private readonly int _baseSpeed;
         private readonly int _baseEnergyMax;
         private readonly int _startingEnergy;
-        private readonly int _baseRange;
+        private readonly int _baseRange; //0-5
         private readonly int _level;
-        //test
+        
+        //dynamic-state stats
         private int _currentHealth;
         private int _currentAttack;
         private int _currentSpeed;
+        private int _currentEnergy;
 
 
         public int BaseHealth
@@ -52,24 +54,38 @@ namespace TestCardClasses
         public int Health
         {
             get { return _currentHealth; }
-            protected set
-            {
-                _currentHealth = value;
-            }
+            protected set { _currentHealth = value; }
         }
-        private List<Buffs.Applied_Buffs.BuffBase> _appliedBuffs =
-            new List<Buffs.Applied_Buffs.BuffBase>();
+        public int Energy
+        {
+            get { return _currentEnergy; }
+            protected set { _currentEnergy = value; }
+        }
+        public int Attack
+        {
+            get { return _currentAttack; }
+            private set { _currentAttack = value; }
+        }
 
-        internal List<Buffs.Applied_Buffs.BuffBase> AppliedBuffs
+        public int Speed
+        {
+            get { return _currentSpeed; }
+            private set { _currentSpeed = value; }
+        }
+
+        private List<Buffs.Applied_Buffs.PersistingBuff> _appliedBuffs =
+            new List<Buffs.Applied_Buffs.PersistingBuff>();
+
+        internal List<Buffs.Applied_Buffs.PersistingBuff> AppliedBuffs
         {
             get { return _appliedBuffs; }
         }
 
-        public Buffs.Applied_Buffs.BuffBase[] ApiAppliedBuffsExternalCall
+        public Buffs.Applied_Buffs.PersistingBuff[] ApiAppliedBuffsExternalCall
         {
             get
             {
-                Buffs.Applied_Buffs.BuffBase[] copyList = _appliedBuffs.ToArray();
+                Buffs.Applied_Buffs.PersistingBuff[] copyList = _appliedBuffs.ToArray();
                 return copyList;
             }
         }
@@ -105,20 +121,21 @@ namespace TestCardClasses
             Health = (remainingHealth >= 0) ? remainingHealth : 0;
         }
         
-        internal void ApplyHealthBuff()
+        internal void ApplySingleUseBuffs(Buffs.Applied_Buffs.SingleUseBuff buff)
         {
-
+            Health = buff.CalculateHealth(this);
+            Energy = buff.CalculateEnergy(this);
         }
 
         public void RecalculateStats()
         {
             RecalculateAttack();
-            //Might add Recalculation of speed here as well?
+            RecalculateSpeed();
         }
 
         private void RecalculateAttack()
         {
-            Attack = _baseAttack;
+            Attack = BaseAttack;
             //Need to decide if this is better, or just having a sorted list.
             _appliedBuffs = _appliedBuffs.OrderBy(b => b.Priority).ToList();
             foreach(var buff in _appliedBuffs)
@@ -126,17 +143,14 @@ namespace TestCardClasses
                 Attack = buff.CalculateAttack();
             }
         }
-
-        public int Attack
+        private void RecalculateSpeed()
         {
-            get { return _currentAttack; }
-            private set { _currentAttack = value; }
-        }
-
-        public int Speed
-        {
-            get { return _currentSpeed; }
-            private set { _currentSpeed = value; }
+            Speed = BaseSpeed;
+            _appliedBuffs = _appliedBuffs.OrderBy(b => b.Priority).ToList();
+            foreach(var buff in _appliedBuffs)
+            {
+                Speed = buff.CalculateSpeed();
+            }
         }
     }
 

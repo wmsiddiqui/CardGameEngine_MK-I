@@ -12,7 +12,7 @@
         }
         public override int CalculateSpeed()
         {
-            return ParentUnit. + 2;
+            return ParentUnit.Speed + 2;
         }
     }
 }

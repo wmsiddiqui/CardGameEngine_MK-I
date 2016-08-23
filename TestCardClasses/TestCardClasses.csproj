@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Buffs\Applied Buffs\BerserkerBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\BuffBase.cs" />
+    <Compile Include="Buffs\Applied Buffs\PersistingBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\ConditionalBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\MegamorphDoubleBuff.cs" />
     <Compile Include="Buffs\Applied Buffs\AttackBuff500.cs" />

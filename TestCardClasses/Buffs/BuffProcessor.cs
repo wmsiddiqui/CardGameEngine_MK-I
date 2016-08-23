@@ -11,9 +11,21 @@ namespace TestCardClasses.Buffs
     {
         public static void AddBuff(BuffBase buff, BaseUnit unit)
         {
-            if(!buff.Stackable)
+            if (buff is SingleUseBuff)
             {
-                if(buff is LingeringBuffs)
+                ProcessSingleUseBuff(buff as SingleUseBuff, unit);
+            }
+            else
+            {
+                ProcessContinuousBuff(buff as PersistingBuff, unit);
+            }
+        }
+
+        private static void ProcessContinuousBuff(PersistingBuff buff, BaseUnit unit)
+        {
+            if (!buff.Stackable)
+            {
+                if (buff is LingeringBuffs)
                 {
                     return;
                 }
@@ -25,23 +37,16 @@ namespace TestCardClasses.Buffs
 
                     var matchedBuff = matchingBuffs.First();
                     unit.AppliedBuffs.Remove(matchedBuff);
-                }               
+                }
             }
-            if (!(buff is SingleUseBuff))
-            {
-                unit.AppliedBuffs.Add(buff);
-                buff.ParentUnit = unit;
-                unit.RecalculateStats();
-            }
-            else
-            {
-                ProcessSingleUseBuff(buff as SingleUseBuff);
-            }
+            unit.AppliedBuffs.Add(buff);
+            buff.ParentUnit = unit;
+            unit.RecalculateStats();
         }
 
-        public static void ProcessSingleUseBuff(SingleUseBuff buff)
+        public static void ProcessSingleUseBuff(SingleUseBuff buff, BaseUnit unit)
         {
-            
+            unit.ApplySingleUseBuffs(buff);
         }
         /// <summary>
         /// Removes first occurance of specified buff from unit.
@@ -50,7 +55,7 @@ namespace TestCardClasses.Buffs
         /// <param name="buff">The buff to be removed</param>
         /// <param name="unit">The Unit the buff will be removed from</param>
         /// <param name="removeAll">Will all instnaces of the buff be removed?</param>
-        public static void RemoveBuff(BuffBase buff, BaseUnit unit, bool removeAll = false)
+        public static void RemoveBuff(PersistingBuff buff, BaseUnit unit, bool removeAll = false)
         {
             var matchingBuffs = FindMatchingAppliedBuffs(buff, unit);
             if (matchingBuffs == null)
@@ -70,7 +75,7 @@ namespace TestCardClasses.Buffs
                 unit.RecalculateStats();
             }
         }
-        private static IEnumerable<BuffBase> FindMatchingAppliedBuffs(BuffBase buff, BaseUnit unit)
+        private static IEnumerable<PersistingBuff> FindMatchingAppliedBuffs(PersistingBuff buff, BaseUnit unit)
         {
             var matchingBuffs = unit.AppliedBuffs.Where(b => b.GetType() == buff.GetType());
 

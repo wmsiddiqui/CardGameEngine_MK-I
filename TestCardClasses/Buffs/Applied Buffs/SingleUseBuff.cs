@@ -12,9 +12,17 @@ namespace TestCardClasses.Buffs.Applied_Buffs
     public abstract class SingleUseBuff : BuffBase
     {
         public SingleUseBuff()
-            :base(false)
         {
 
+        }
+
+        public virtual int CalculateHealth(BaseUnit unit)
+        {
+            return unit.Health;
+        }
+        public virtual int CalculateEnergy(BaseUnit unit)
+        {
+            return unit.Energy;
         }
     }
 }

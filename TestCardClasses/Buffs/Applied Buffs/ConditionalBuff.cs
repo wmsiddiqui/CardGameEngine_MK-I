@@ -1,6 +1,6 @@
 ﻿namespace TestCardClasses.Buffs.Applied_Buffs
 {
-    public abstract class ConditionalBuff : BuffBase
+    public abstract class ConditionalBuff : PersistingBuff
     {
         protected delegate bool ActiveCondition();
         protected ActiveCondition _activeCondition;

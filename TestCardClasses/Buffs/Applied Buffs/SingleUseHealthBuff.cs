@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses.Buffs.Applied_Buffs
 {
-    class SingleUseHealthBuff
+    public sealed class SingleUseHealthBuff : SingleUseBuff
     {
+        private const int HealthChange = 2;
+
+        public override int CalculateHealth(BaseUnit unit)
+        {
+            return unit.Health + HealthChange;
+        }
     }
 }

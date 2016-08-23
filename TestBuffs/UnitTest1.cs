@@ -100,5 +100,16 @@ namespace TestBuffs
 
             Assert.AreEqual(500, unit.Attack);
         }
+
+        [TestMethod]
+        public void TestSpeedBuff()
+        {
+            var unit = new TestCardClasses.Units.CustomUnit1();
+            var buff = new SpeedBuff();
+
+            TestCardClasses.Buffs.BuffProcessor.AddBuff(buff, unit);
+
+            Assert.AreEqual(unit.BaseSpeed + 2, unit.Speed);
+        }
     }
 }
