@@ -57,6 +57,7 @@
     <Compile Include="Processors\DamageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\CustomUnit1.cs" />
+    <Compile Include="Buffs\Applied Buffs\SingleUseEnergyBuff.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
