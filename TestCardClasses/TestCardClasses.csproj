@@ -66,6 +66,7 @@
     <Compile Include="Special Attacks\SpecialAttack.cs" />
     <Compile Include="Units\CustomUnit1.cs" />
     <Compile Include="Units\UnitContainer.cs" />
+    <Compile Include="Buffs\Applied Buffs\SingleUseEnergyBuff.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
