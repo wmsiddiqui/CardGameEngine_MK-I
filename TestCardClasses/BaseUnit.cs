@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses
 {
-    public abstract class BaseUnit : BaseCard
+    public interface IBaseUnit
+    {
+        //TODO: THis is wrong!!! We need to abstract into interfaces for testing!
+        int BaseHealth { get; }
+        int BaseAttack { get; }
+        int BaseSpeed { get; }
+        int BaseEnergyMax { get; }
+        int StartingEnergy { get; }
+        int Range { get; }
+        int Level { get; }
+        Buffs.Applied_Buffs.PersistingBuff[] ApiAppliedBuffsExternalCall { get; }
+        //internal List<Buffs.Applied_Buffs.PersistingBuff> AppliedBuffs { get; }
+    }
+    public abstract class BaseUnit : BaseCard, IBaseUnit
     {
         private readonly int _baseHealth;
         private readonly int _baseAttack;
@@ -110,6 +123,7 @@ namespace TestCardClasses
             Health -= damage;
         }
 
+        //TODO: WRONG! Only units can do damage???
         public void ApplyDamage(BaseUnit attackingUnit)
         {
             int damage = attackingUnit.Attack;

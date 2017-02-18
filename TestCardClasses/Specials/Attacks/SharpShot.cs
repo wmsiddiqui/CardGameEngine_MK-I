@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCardClasses.Special_Attacks
+namespace TestCardClasses.Specials.Attacks
 {
     class SharpShot : SpecialAttack, AttackAttributes.SniperAttack
     {

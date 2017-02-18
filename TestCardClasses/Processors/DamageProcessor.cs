@@ -12,5 +12,10 @@ namespace TestCardClasses.Processors
         {
             defendingUnit.ApplyDamage(attackingUnit);
         }
+
+        public void ProcessAttackAction(Interactions.AttackAction attack)
+        {
+            //TODO
+        }
     }
 }

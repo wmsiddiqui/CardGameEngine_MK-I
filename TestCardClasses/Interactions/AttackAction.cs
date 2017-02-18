@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses.Interactions
 {
-    public class AttackAction : InteractionAction
+    public class AttackAction : IInteractionAction
     {
-        private int _priority;
         private readonly BaseUnit _attacker;
         //private readonly BaseUnit _defender; //this should be slot
         public int Priority
         {
-            get { return _priority; }
-            private set { _priority = value; }
+            get { return Source.Speed; }
+        }
+        public BaseUnit Source
+        {
+            get { return _attacker; }
         }
 
-        AttackAction(BaseUnit attacker)
+        public Game_Components.Attackable Target { get; }
+
+        AttackAction(BaseUnit attacker, Specials.Attacks.AttackType attackType)
         {
             _attacker = attacker;
         }
-
-
     }
 }

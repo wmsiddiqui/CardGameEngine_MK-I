@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestCardClasses.Buffs.Applied_Buffs;
+using TestCardClasses.Processors;
+using TestCardClasses.Interactions;
 
 namespace TestBuffs
 {
@@ -110,6 +112,29 @@ namespace TestBuffs
             TestCardClasses.Buffs.BuffProcessor.AddBuff(buff, unit);
 
             Assert.AreEqual(unit.BaseSpeed + 2, unit.Speed);
+        }
+
+        [TestMethod]
+        public void TestField()
+        {
+            var unit = new TestCardClasses.Units.CustomUnit1();
+            var field = new TestCardClasses.Game_Components.GameBoard.PlayerField();
+
+            var cardContainer = field.GetContainerAtSlot(3);
+
+            field.AddUnit(unit, 3);
+            Assert.AreSame(unit, cardContainer.UnitCard);
+        }
+
+        [TestMethod]
+        public void TestDamage()
+        {
+            var unit = new TestCardClasses.Units.CustomUnit1();
+
+            var target = new TestCardClasses.Units.CustomUnit1();
+
+            target.ApplyDamage(unit);
+            Assert.AreEqual(3, target.Health);
         }
     }
 }

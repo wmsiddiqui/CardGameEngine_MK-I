@@ -54,21 +54,27 @@
     <Compile Include="BaseCard.cs" />
     <Compile Include="BaseUnit.cs" />
     <Compile Include="Buffs\BuffProcessor.cs" />
-    <Compile Include="GameBoard\GameBoard.cs" />
-    <Compile Include="GameBoard\PlayerField.cs" />
+    <Compile Include="Game Components\GameBoard\FieldCardContainer.cs" />
+    <Compile Include="Game Components\GameBoard\GameBoard.cs" />
+    <Compile Include="Game Components\GameBoard\PlayerField.cs" />
+    <Compile Include="Game Components\GamePieceInterface.cs" />
     <Compile Include="Interactions\AttackAction.cs" />
+    <Compile Include="Interactions\BuffAction.cs" />
     <Compile Include="Interactions\InteractionQueue.cs" />
-    <Compile Include="Player\IPlayer.cs" />
+    <Compile Include="Game Components\Player\IPlayer.cs" />
     <Compile Include="Processors\DamageProcessor.cs" />
+    <Compile Include="Processors\GameProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Special Attacks\AttackAttributes\RangedAttacks.cs" />
-    <Compile Include="Special Attacks\SharpShot.cs" />
-    <Compile Include="Special Attacks\SpecialAttack.cs" />
+    <Compile Include="Specials\Attacks\AttackAttributes\RangedAttacks.cs" />
+    <Compile Include="Specials\Attacks\SharpShot.cs" />
+    <Compile Include="Specials\Attacks\SpecialAttack.cs" />
     <Compile Include="Units\CustomUnit1.cs" />
     <Compile Include="Units\UnitContainer.cs" />
     <Compile Include="Buffs\Applied Buffs\SingleUseEnergyBuff.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Specials\Buffs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
