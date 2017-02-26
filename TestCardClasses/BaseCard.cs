@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 
 namespace TestCardClasses
 {
-    public abstract class BaseCard
+    public abstract class BaseCard : ICard
     {
         private readonly CardType _cardType;
         private readonly string _name;
 
-        public string Name
-        {
-            get { return _name; }
-        }
         public BaseCard(CardType type, string name)
         {
             _cardType = type;
             _name = name;
         }
-
+        public string Name
+        {
+            get { return _name; }
+        }
+        public CardType Type
+        {
+            get { return _cardType; }
+        }
         public override string ToString()
         {
             return Name;
@@ -31,5 +34,11 @@ namespace TestCardClasses
         Unit = 1,
         Armor = 2,
         Buff = 3
+    }
+
+    public interface ICard
+    {
+        string Name { get; }
+        CardType Type { get; }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestCardClasses.Buffs.Applied_Buffs;
 using TestCardClasses.Processors;
 using TestCardClasses.Interactions;
+using System.Collections.Generic;
 
 namespace TestBuffs
 {
@@ -70,6 +71,7 @@ namespace TestBuffs
             Assert.AreEqual(2, unit.StartingEnergy);
             Assert.AreEqual(2, unit.Range);
             Assert.AreEqual(2, unit.Level);
+
         }
 
         [TestMethod]
@@ -135,6 +137,44 @@ namespace TestBuffs
 
             target.ApplyDamage(unit);
             Assert.AreEqual(3, target.Health);
+        }
+
+        public class TestUnit : TestCardClasses.IBaseUnit
+        {
+            public List<PersistingBuff> AppliedBuffs;
+            
+            public PersistingBuff[] ApiAppliedBuffsExternalCall
+            {
+                get { return AppliedBuffs.ToArray(); }
+            }
+            public int BaseAttack
+            {
+                get; set;
+            }
+            public int BaseEnergyMax
+            {
+                get; set;
+            }
+            public int BaseHealth
+            {
+                get; set;
+            }
+            public int BaseSpeed
+            {
+                get; set;
+            }
+            public int Level
+            {
+                get; set;
+            }
+            public int Range
+            {
+                get; set;
+            }
+            public int StartingEnergy
+            {
+                get; set;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace TestCardClasses.Buffs
 {
     public static class BuffProcessor
     {
-        public static void AddBuff(BuffBase buff, BaseUnit unit)
+        public static void AddBuff(BuffBase buff, IBaseUnit unit)
         {
             if (buff is SingleUseBuff)
             {
@@ -21,7 +21,7 @@ namespace TestCardClasses.Buffs
             }
         }
 
-        private static void ProcessContinuousBuff(PersistingBuff buff, BaseUnit unit)
+        private static void ProcessContinuousBuff(PersistingBuff buff, IBaseUnit unit)
         {
             if (!buff.Stackable)
             {
@@ -36,6 +36,9 @@ namespace TestCardClasses.Buffs
                         throw new Exception("More than one of the same non-stackable buffs applied!");
 
                     var matchedBuff = matchingBuffs.First();
+                    //This seems dangerous. Why give the processor that processed BUFFS the ability to remove from a list
+                    //on the UNIT? Makes no sense, violates encapsulation. 
+                    //We can have the unit responsible for removing a buff directly.
                     unit.AppliedBuffs.Remove(matchedBuff);
                 }
             }
@@ -44,7 +47,7 @@ namespace TestCardClasses.Buffs
             unit.RecalculateStats();
         }
 
-        public static void ProcessSingleUseBuff(SingleUseBuff buff, BaseUnit unit)
+        public static void ProcessSingleUseBuff(SingleUseBuff buff, IBaseUnit unit)
         {
             unit.ApplySingleUseBuffs(buff);
         }
@@ -75,7 +78,7 @@ namespace TestCardClasses.Buffs
                 unit.RecalculateStats();
             }
         }
-        private static IEnumerable<PersistingBuff> FindMatchingAppliedBuffs(PersistingBuff buff, BaseUnit unit)
+        private static IEnumerable<PersistingBuff> FindMatchingAppliedBuffs(PersistingBuff buff, IBaseUnit unit)
         {
             var matchingBuffs = unit.AppliedBuffs.Where(b => b.GetType() == buff.GetType());
 

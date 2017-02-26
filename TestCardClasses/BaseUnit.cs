@@ -17,6 +17,7 @@ namespace TestCardClasses
         int Range { get; }
         int Level { get; }
         Buffs.Applied_Buffs.PersistingBuff[] ApiAppliedBuffsExternalCall { get; }
+        void ApplySingleUseBuffs(Buffs.Applied_Buffs.SingleUseBuff buff);
         //internal List<Buffs.Applied_Buffs.PersistingBuff> AppliedBuffs { get; }
     }
     public abstract class BaseUnit : BaseCard, IBaseUnit
