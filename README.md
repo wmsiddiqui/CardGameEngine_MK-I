@@ -1,4 +1,23 @@
-# CardGameEngine_MK-I
+# CardGameEngine_MK-I - Abandoned
+
+## Lessons Learned
+
+Programming to interfaces more, instead of classes, would have allowed us to unit test more. At the moment we were creating concrete classes to use in our unit tests, when we should be able to just "mock out" classes implementing the respective interfaces. 
+
+Furthermore, due to some invalid concerns we had about security, we made classes more tightly coupled, which led to some convoluted code. Since this is all server sided, we shouldn't need to be concerned about security outside of API level security.
+
+## Things We Did Well
+
+We programmed to interfaces, but just not enough. It was a step I  the right direction. 
+
+Some unit tests are better than none.
+
+Loose coupling allows for different game type implementations.
+
+Great effort to writing clean code. 
+
+## The End
+
 Card Game Engine Architecture phase
 
 Notes:
